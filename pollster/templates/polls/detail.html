@@ -1,0 +1,50 @@
+
+{% extends 'base.html' %}
+
+
+{% block 'content' %}
+
+{% if error_message %}
+    <div class="alert alert-danger" role="alert">
+        <strong>{{error_message}}</strong>
+    </div>
+{% endif %}
+
+
+<h3 class="text-center">Vote Now</h3>
+
+{% if question %}
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">{{question.question_text}}</h4>
+
+        <form action="{% url 'polls:vote' question.id %}" method="post">
+
+            {% csrf_token %}
+
+            {% for choice in question.choice_set.all %}
+
+            <div class="form-check">
+                <label class="form-check-label" for="choice{{ forloop.counter }}">
+                <input type="radio" class="form-check-input" name="choice" id="choice{{ forloop.counter }}" value="{{choice.id}}">
+                {{choice.choice_text}}
+              </label>
+            </div>
+
+            
+            {% endfor %}
+            
+            <button type="submit" class="btn btn-primary">Submit vote</button>
+        </form>
+
+    </div>
+</div>
+
+
+{% else %}
+<h3>Does not exist</h3>
+
+
+{%endif %}
+
+{% endblock %}

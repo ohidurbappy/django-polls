@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+
+{% block 'content' %}
+
+<h2 class="text-center">Polls Result</h2>
+
+{% if question %}
+
+<div class="card"></div>
+    <div class="card-body">
+        <h4 class="card-title">{{question.question_text}}</h4>
+        <p class="card-text">
+            <ul class="list-group">
+                {% for choice in question.choice_set.all %}
+                <li class="list-group-item ">
+                    {{choice.choice_text}}
+                    <span class="badge bg-secondary">{{choice.votes}} vote{{choice.votes | pluralize}}</span>
+                </li>
+                {% endfor %}
+            </ul>
+
+        </p>
+    </div>
+
+    <div>
+        <a class="btn btn-primary" href="{% url 'polls:details' question.id %}">Vote again</a>
+    <a class="btn btn-secondary" href="{% url 'polls:index' %}">Back to home</a>
+    
+    </div>
+
+</div>
+
+
+{% endif %}
+
+{% endblock %}

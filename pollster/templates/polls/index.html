@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+
+{% block 'content' %}
+
+
+<div class="container">
+    <div class="text-center mx-auto">
+        <h1>Polls</h1>
+        
+    </div>
+
+    {% if latest_questions %}
+
+        {% for question in latest_questions %}
+
+        <div class="card mb-4">
+            <img class="card-img-top" src="holder.js/100x180/" alt="">
+            <div class="card-body">
+                <h4 class="card-title">{{question.question_text}}</h4>
+                <a href="{% url 'polls:details' question.id %}" class="btn btn-primary" >Vote Now</a>
+
+                <a href="{% url 'polls:results' question.id %}" class="btn btn-secondary">Results</a>
+            </div>
+        </div>
+
+
+
+        {% endfor %}
+
+    {% else %}
+
+        <h4>No question in the database</h4>
+
+    {% endif %}
+
+    
+</div>
+
+{% endblock %}
